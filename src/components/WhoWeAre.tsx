@@ -7,8 +7,8 @@ import whoweare1 from "../assets/whoweare1.png";
 import whoweare2 from "../assets/whoweare2.png";
 import founderImage from "../assets/tarek.png";
 import linkedin from "../assets/linkedin-in 1.png";
-import whoWeareMobile from "../assets/whowearemobile.png";
-import whoWeAreMobile2 from "../assets/whowearemobile2.png";
+import whoWeareMobile from "../assets/whoWeAreMobile.png";
+import whoWeAreMobile2 from "../assets/whoweAreMobile2.png";
 
 // Reusable transition for initial fade-ins
 const fadeTransition = { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const };
