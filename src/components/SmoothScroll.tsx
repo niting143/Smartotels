@@ -7,7 +7,11 @@ import { LoadingProvider } from "@/context/LoadingContext";
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   return (
     <LoadingProvider>
-      <ReactLenis root>
+      <ReactLenis root options={{ 
+        lerp: 0.1, 
+        duration: 1.5, 
+        touchMultiplier: 2 
+      }}>
         {children}
       </ReactLenis>
     </LoadingProvider>

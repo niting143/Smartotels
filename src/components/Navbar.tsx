@@ -25,7 +25,9 @@ export default function Navbar() {
       // We look a bit below the very top edge to catch the section body
       const x = window.innerWidth / 2;
       const y = 50; // 50px down from top
-
+      
+      // Use efficient elementFromPoint vs elementsFromPoint if possible, 
+      // but logic relied on traversing parents.
       const elements = document.elementsFromPoint(x, y);
       
       // Define which sections are dark
@@ -126,9 +128,9 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={showNavbar ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 transition-all duration-300 pointer-events-none md:pointer-events-auto"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pointer-events-auto">
         {/* LOGO */}
         <Link href="/" className="relative block z-50">
           <Image
@@ -207,7 +209,7 @@ export default function Navbar() {
 
       {/* MOBILE MENU DROPDOWN */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md p-6 md:hidden flex flex-col items-center gap-6 shadow-xl border-t border-white/10">
+        <div className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md p-6 md:hidden flex flex-col items-center gap-6 shadow-xl border-t border-white/10 pointer-events-auto">
           {menuItems.map((item) => {
             return (
               <a

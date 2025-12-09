@@ -54,14 +54,9 @@ export default function WhoWeAre() {
           2. mix-blend-mode-difference: Makes the text color invert based on background 
              (Grey on White, Light on Black) for better visibility and style.
       */}
-      <div className="sticky top-0 left-0 w-full h-screen flex flex-col justify-start pt-20 md:pt-16 md:pb-16 z-50 pointer-events-none opacity-100 overflow-hidden mix-blend-difference">
-        <h1 className="text-[12vw] md:text-[8vw] font-bold font-open-sans text-[#E6E6E6] leading-none tracking-tighter whitespace-nowrap">
-          who we are
-        </h1>
-      </div>
-
+      
       {/* --- SCROLLING CONTENT WRAPPER --- */}
-      <div className="relative z-10 -mt-[100vh] pt-[20vh] md:pt-[22vh] md:pb-24">
+      <div className="relative z-10 pt-10 md:pt-16 md:pb-24">
         
         {/* =========================================
             SECTION 1: FOUNDATION 
@@ -123,7 +118,8 @@ export default function WhoWeAre() {
           <div className="flex flex-col md:flex-row items-center md:justify-end">
             
             {/* Image Container */}
-            <div className="w-full md:w-[50%] h-auto md:h-[650px] relative overflow-hidden z-10 order-1 md:order-2">
+            {/* ADDED: md:mr-20 to push the image away from the right edge on desktop */}
+            <div className="w-full md:w-[50%] h-auto md:h-[650px] relative overflow-hidden z-10 order-1 md:order-2 md:mr-20">
               <motion.div 
                 style={{ y: yImg2, scale: 1.15 }} 
                 className="relative md:absolute inset-0 w-full h-full md:h-[120%]"

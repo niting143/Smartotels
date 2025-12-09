@@ -73,17 +73,6 @@ export default function WhatWeDo() {
       {/* Sticky Container */}
       <div className="relative lg:sticky lg:top-0 h-auto lg:h-screen overflow-hidden flex flex-col">
         
-        {/* --- WATERMARK HEADER (ALWAYS ON TOP) --- */}
-        {/* z-50: Sits above all cards 
-            mix-blend-difference: Inverts color based on background (White -> Black text, Dark Green -> White text)
-            pointer-events-none: Allows clicking through to cards below
-        */}
-        <div className="absolute top-0 left-0 w-full pt-8 lg:pt-16 z-50 pointer-events-none mix-blend-difference">
-          <h1 className="text-[10vw] md:text-[8vw] font-bold font-open-sans text-[#DCDCDC] leading-none tracking-tighter whitespace-nowrap">
-            what we do
-          </h1>
-        </div>
-
         {/* --- CONTENT CONTAINER --- */}
         <div className="relative z-10 w-full max-w-[1600px] mx-auto px-0 md:px-12 pt-[15vh] lg:pt-[25vh] pb-12 lg:pb-24">
           

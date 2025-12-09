@@ -60,15 +60,9 @@ export default function BrandExperience() {
       className="relative w-full bg-[#FAFAFA] text-black"
     >
       
-      {/* --- WATERMARK HEADER (STICKY) --- */}
-      <div className="sticky top-0 left-0 w-full h-screen flex flex-col justify-start pt-8 lg:pt-16 z-50 pointer-events-none mix-blend-difference opacity-100 overflow-hidden">
-        <h1 className="text-[10vw] md:text-[8vw] font-semibold font-open-sans text-[#DCDCDC] leading-none tracking-tighter whitespace-nowrap pl-6 md:pl-0">
-          what we do
-        </h1>
-      </div>
-
-      {/* --- SCROLLING CONTENT WRAPPER --- */}
-      <div className="relative z-10 -mt-[100vh] pt-[20vh] pb-12 lg:pb-32 w-full max-w-[1600px] mx-auto px-0 md:px-12">
+      
+      {/* Content */}
+      <div className="relative z-10 pt-12 lg:pb-32 w-full max-w-[1600px] mx-auto px-0 md:px-12">
 
         {/* Section Title */}
         <div className="text-center mb-12 md:mb-24 relative z-10">
@@ -123,7 +117,7 @@ export default function BrandExperience() {
                    
                    {/* Right: Image Block */}
                    <div className="relative h-[250px] lg:h-auto w-full">
-                      <ParallaxImage src={brand1} alt="Hospitality Technology" />
+                      <ParallaxImage src={brand3} alt="Hospitality Technology" />
                    </div>
                 </div>
               </div>
@@ -211,7 +205,7 @@ export default function BrandExperience() {
 
                    {/* Right: Image Block */}
                    <div className="relative h-[250px] lg:h-auto w-full">
-                      <ParallaxImage src={brand3} alt="Brand Architecture" />
+                      <ParallaxImage src={brand1} alt="Brand Architecture" />
                    </div>
                </div>
              </div>

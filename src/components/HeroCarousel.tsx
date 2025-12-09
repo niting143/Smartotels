@@ -71,10 +71,10 @@ const PrimaryButton = ({
     className={cn(
       "group relative overflow-hidden flex items-center justify-center shadow-2xl transition-all z-50",
       // Base Mobile Styles: Full width, tracking, padding
-      "w-full py-4 text-xs tracking-widest px-6 text-center",
+      "w-full py-4 text-xs tracking-widest px-2 text-center",
       // Base Desktop Styles:
-      "md:py-5 md:text-sm",
-      "bg-white text-neutral-950 font-bold uppercase rounded-sm",
+      "md:py-4 md:text-sm",
+      "bg-white text-neutral-950 font-medium uppercase rounded-sm",
       // Merge custom classes (allows overriding width on desktop)
       className
     )}
@@ -255,20 +255,20 @@ export default function HeroCarousel() {
       </div>
 
       {/* 3. Bottom Controls - ABSOLUTE BOTTOM */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col items-center pb-8 md:pb-12 px-4 gap-8 pointer-events-auto">
+      <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col items-center pb-8 md:pb-12 px-0 gap-8 pointer-events-auto">
         
         {/* Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="flex flex-col md:flex-row gap-3 md:gap-6 w-full md:w-auto "
+          className="flex flex-col md:flex-row gap-3 md:gap-6 w-auto "
         >
           <PrimaryButton 
             href="#section-what-we-do"
             onClick={handleNavigation}
             // Custom Width for this specific button on Desktop only
-            className="md:w-[320px] rounded-md"
+            className="md:w-[280px] rounded-md"
           >
             Performance + Intelligence
           </PrimaryButton>
@@ -277,7 +277,7 @@ export default function HeroCarousel() {
             href="#section-brand-experience"
             onClick={handleNavigation}
             // Standard width for Desktop
-            className="md:w-[260px] rounded-md"
+            className="md:w-[240px] rounded-md"
           >
             Brand + Experience
           </PrimaryButton>

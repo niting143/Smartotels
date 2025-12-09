@@ -4,6 +4,7 @@ import WhatWeDo from "@/components/WhatWeDo";
 import BrandExperience from "@/components/BrandExperience";
 import HospitalityStructured from "@/components/HospitalityStructured";
 import Footer from "@/components/Footer";
+import WatermarkHeading from "@/components/WatermarkHeading";
 
 import Navbar from "@/components/Navbar";
 
@@ -14,6 +15,8 @@ export default function Home() {
       <div id="section-hero" className="relative z-0">
         <HeroCarousel />
       </div>
+
+      <WatermarkHeading />
 
       {/* WhoWeAre */}
       <div id="section-who-we-are" className="relative z-10 bg-white">
