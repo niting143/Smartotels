@@ -31,22 +31,22 @@ const slides: Slide[] = [
   {
     id: 1,
     videoUrl: video1,
-    text: ["Hospitality", "structured with", "finance rigor."],
+    text: ["HOSPITALITY.", "STRUCTURED BY DATA"],
   },
   {
     id: 2,
     videoUrl: video2,
-    text: ["Experience crafted", "with intelligence", "& emotional intent."],
+    text: ["EXPERIENCE.", "DESIGNED WITH INTELLIGENCE"],
   },
   {
     id: 3,
     videoUrl: video3,
-    text: ["Engineering", "performance that", "endures cycles."],
+    text: ["PERFORMANCE.", "ENGINEERED TO ENDURE"],
   },
   {
     id: 4,
     videoUrl: video4,
-    text: ["This is", "Smartotels."],
+    text: ["THIS IS", "SMARTOTELS"],
   },
 ];
 
@@ -196,7 +196,7 @@ export default function HeroCarousel() {
   return (
     <section
       className={cn(
-        "relative h-[100dvh] w-full overflow-hidden bg-neutral-950 text-white",
+        "relative h-[100dvh] w-full overflow-hidden bg-[#2F4E54] text-white",
         openSans.className
       )}
     >
@@ -243,7 +243,7 @@ export default function HeroCarousel() {
                   className={cn(
                     "block font-extrabold uppercase font-open-sans  text-white leading-[0.9]",
                     // Responsive Text Sizing
-                    "text-[10vw] md:text-[6vw] lg:text-[5vw] xl:text-7xl"
+                    "text-[10vw] md:text-8xl"
                   )}
                 >
                   {line}
