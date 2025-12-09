@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Preloader from "@/components/Preloader";
+import PageWrapper from "@/components/PageWrapper";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -28,8 +29,9 @@ export default function RootLayout({
       >
         <SmoothScroll>
           <Preloader />
+
           <Navbar />
-          <main>{children}</main>
+          <PageWrapper>{children}</PageWrapper>
         </SmoothScroll>
       </body>
     </html>

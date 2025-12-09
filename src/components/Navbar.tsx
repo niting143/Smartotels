@@ -8,6 +8,8 @@ import colouredLogo from "../assets/smartotels-final-logo-colored.svg";
 import { useLenis } from "lenis/react";
 import gsap from "gsap";
 import { useRouter, usePathname } from "next/navigation";
+import { useLoading } from "@/context/LoadingContext";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,6 +17,7 @@ export default function Navbar() {
   const lenis = useLenis();
   const router = useRouter();
   const pathname = usePathname();
+  const { showNavbar } = useLoading();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -119,7 +122,12 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 transition-all duration-300">
+    <motion.nav 
+      initial={{ y: -100, opacity: 0 }}
+      animate={showNavbar ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 transition-all duration-300"
+    >
       <div className="flex items-center justify-between">
         {/* LOGO */}
         <Link href="/" className="relative block z-50">
@@ -214,6 +222,6 @@ export default function Navbar() {
           })}
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 }
