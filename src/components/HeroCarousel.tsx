@@ -31,17 +31,17 @@ const slides: Slide[] = [
   {
     id: 1,
     videoUrl: video1,
-    text: ["HOSPITALITY.", "STRUCTURED BY DATA"],
+    text: ["HOSPITALITY", "STRUCTURED BY DATA"],
   },
   {
     id: 2,
     videoUrl: video2,
-    text: ["EXPERIENCE.", "DESIGNED WITH INTELLIGENCE"],
+    text: ["EXPERIENCE", "DESIGNED WITH INTELLIGENCE"],
   },
   {
     id: 3,
     videoUrl: video3,
-    text: ["PERFORMANCE.", "ENGINEERED TO ENDURE"],
+    text: ["PERFORMANCE", "ENGINEERED TO ENDURE"],
   },
   {
     id: 4,
@@ -225,64 +225,66 @@ export default function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
-      {/* 2. Text Layer - ABSOLUTE CENTERED */}
-      <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none px-4">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            variants={containerVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="flex flex-col items-center text-center gap-y-1 md:gap-y-4"
-          >
-            {slides[currentIndex].text.map((line, index) => (
-              <div key={index} className="overflow-hidden relative">
-                <motion.span
-                  variants={lineVariants}
-                  className={cn(
-                    "block font-extrabold uppercase font-open-sans  text-white leading-[0.9]",
-                    // Responsive Text Sizing
-                    "text-[10vw] md:text-8xl"
-                  )}
+      {/* 2. Main Content Layer - Centered Text & Buttons */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none px-4 md:px-12">
+        {/* Text Container - Centered */}
+        <div className="flex-1 flex items-center justify-center w-full">
+            <AnimatePresence mode="wait">
+            <motion.div
+                key={currentIndex}
+                variants={containerVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="flex flex-col items-center justify-center text-center w-full max-w-[90vw]"
+            >
+                {/* Text Lines */}
+                <div className="flex flex-col items-center gap-y-0 md:gap-y-2">
+                {slides[currentIndex].text.map((line, index) => (
+                    <div key={index} className="overflow-hidden relative">
+                    <motion.span
+                        variants={lineVariants}
+                        className={cn(
+                        "block font-extrabold uppercase tracking-tight text-white leading-[0.8] md:leading-[0.8]",
+                        // Big Text Sizing - UNStudio Style
+                        "text-[13vw] md:text-[10vw] lg:text-[8vw] xl:text-[7vw]"
+                        )}
+                    >
+                        {line}
+                    </motion.span>
+                    </div>
+                ))}
+                </div>
+            </motion.div>
+            </AnimatePresence>
+        </div>
+
+        {/* Buttons - Static Position below text */}
+        <div className="pointer-events-auto pb-16 md:pb-24">
+            <div className="flex flex-col md:flex-row gap-3 md:gap-6 w-auto">
+                <PrimaryButton 
+                    href="#section-what-we-do"
+                    onClick={handleNavigation}
+                    // Reverted Style: Original Structured Look
+                    className="md:w-[280px] rounded-sm"
                 >
-                  {line}
-                </motion.span>
-              </div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+                    Performance + Intelligence
+                </PrimaryButton>
+
+                <PrimaryButton 
+                    href="#section-brand-experience"
+                    onClick={handleNavigation}
+                    // Reverted Style: Original Structured Look
+                    className="md:w-[240px] rounded-sm"
+                >
+                    Brand + Experience
+                </PrimaryButton>
+            </div>
+        </div>
       </div>
 
       {/* 3. Bottom Controls - ABSOLUTE BOTTOM */}
       <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col items-center pb-8 md:pb-12 px-0 gap-8 pointer-events-auto">
-        
-        {/* Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="flex flex-col md:flex-row gap-3 md:gap-6 w-auto "
-        >
-          <PrimaryButton 
-            href="#section-what-we-do"
-            onClick={handleNavigation}
-            // Custom Width for this specific button on Desktop only
-            className="md:w-[280px] rounded-md"
-          >
-            Performance + Intelligence
-          </PrimaryButton>
-
-          <PrimaryButton 
-            href="#section-brand-experience"
-            onClick={handleNavigation}
-            // Standard width for Desktop
-            className="md:w-[240px] rounded-md"
-          >
-            Brand + Experience
-          </PrimaryButton>
-        </motion.div>
-
         {/* Indicators */}
         <div className="flex gap-4 h-2">
           {slides.map((_, index) => (

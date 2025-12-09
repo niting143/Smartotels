@@ -32,7 +32,7 @@ export default function Preloader() {
         <motion.div 
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-          className="fixed inset-0 z-[45] flex items-center justify-center bg-[#2F4E54]"
+          className="fixed inset-0 z-[45] flex items-center justify-center bg-[#012A32]"
         >
           {/* Pulse Animation for Logo */}
           <motion.div

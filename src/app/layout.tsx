@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${openSans.variable} font-sans antialiased bg-black text-white`}
+        className={`${openSans.variable} font-sans antialiased bg-[#012A32] text-white`}
       >
         <SmoothScroll>
           <Preloader />
