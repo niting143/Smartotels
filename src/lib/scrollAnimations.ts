@@ -12,27 +12,27 @@ export const scrollAnimationVariants = {
   fadeUp: {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 1, ease: "power3.out" }
   },
   fadeIn: {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 0.8, ease: "power3.out" }
   },
   slideLeft: {
     initial: { opacity: 0, x: -60 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 1, ease: "power3.out" }
   },
   slideRight: {
     initial: { opacity: 0, x: 60 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 1, ease: "power3.out" }
   },
   scaleIn: {
     initial: { opacity: 0, scale: 0.9 },
     animate: { opacity: 1, scale: 1 },
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 0.8, ease: "power3.out" }
   }
 };
 
