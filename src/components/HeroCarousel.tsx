@@ -40,7 +40,7 @@ const slides: Slide[] = [
   {
     id: 2,
     videoUrl: video2,
-    text: ["EXPERIENCE DESIGNED WITH", "INTELLIGENCE"],
+    text: ["EXPERIENCE DESIGNED", "WITH INTELLIGENCE"],
   },
   {
     id: 3,
@@ -191,17 +191,28 @@ export default function HeroCarousel() {
   };
 
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    // 1. Minimum 3s Timer
+    const timer = setTimeout(() => {
+      setMinTimeElapsed(true);
+    }, 3000);
+
     if (videoRef.current && videoRef.current.readyState >= 3) {
       setIsVideoLoaded(true);
     }
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleVideoLoad = () => {
     setIsVideoLoaded(true);
   };
+  
+  // Only reveal content when BOTH video is loaded AND 3s have passed
+  const isReady = isVideoLoaded && minTimeElapsed;
 
   return (
     <section
@@ -223,10 +234,11 @@ export default function HeroCarousel() {
           <div className="absolute inset-0 bg-neutral-950/30 z-10" />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-neutral-950/30 z-10" />
           
+          {/* Green Loading Overlay - Covers video */}
           <div 
             className={cn(
-              "absolute inset-0 bg-[#2F4E54] z-20 transition-opacity duration-700 ease-in-out",
-              isVideoLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+              "absolute inset-0 bg-[#2F4E54] z-20 transition-opacity duration-1000 ease-in-out",
+              isReady ? "opacity-0 pointer-events-none" : "opacity-100"
             )}
           />
 
@@ -239,8 +251,8 @@ export default function HeroCarousel() {
             onLoadedData={handleVideoLoad}
             onCanPlay={handleVideoLoad}
             className={cn(
-               "object-cover w-full h-full transition-opacity duration-700 ease-in-out",
-               isVideoLoaded ? "opacity-80" : "opacity-0"
+               "object-cover w-full h-full transition-opacity duration-1000 ease-in-out",
+               isReady ? "opacity-80" : "opacity-0"
             )}
           >
             <source src={slides[currentIndex].videoUrl} type="video/mp4" />
@@ -248,11 +260,17 @@ export default function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
-      {/* 2. Main Content Layer */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 pointer-events-none md:px-12">
+      {/* 2. Main Content Layer - TEXT & BUTTONS */}
+      {/* We fade this in alongside the video */}
+      <div 
+        className={cn(
+            "absolute inset-0 z-20 flex flex-col items-center justify-center px-4 pointer-events-none md:px-12 transition-opacity duration-1000 ease-in-out delay-200", // slight delay for text
+            isReady ? "opacity-100" : "opacity-0"
+        )}
+      >
         
         {/* TEXT CONTAINER (Original dimensions restored) */}
-        <div className="relative w-full flex items-end justify-center h-[22vh] md:h-[22vh] mb-4">
+        <div className="relative w-full flex items-center justify-center h-[15vh] md:h-[22vh] mb-2 md:mb-4">
             <AnimatePresence mode="wait">
             <motion.div
                 key={currentIndex}
@@ -260,7 +278,7 @@ export default function HeroCarousel() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end w-full text-center"
+                className="absolute inset-0 flex flex-col items-center justify-center w-full text-center"
             >
                 <div className="flex flex-col items-center">
                   {slides[currentIndex].text.map((line, index) => (
@@ -269,8 +287,8 @@ export default function HeroCarousel() {
                         variants={lineVariants}
                         className={cn(
                           "flex font-black uppercase tracking-tighter text-white whitespace-nowrap",
-                          "text-[7vw] md:text-[6.5vw]",
-                          "leading-[0.85] pb-[4vw] md:pb-[1vw]" 
+                          "text-[8vw] md:text-[6.5vw]",
+                          "leading-[0.85] pb-[4vw] md:pb-[1vw] tracking-normal md:tracking-wider" 
                         )}
                       >
                         {line}
