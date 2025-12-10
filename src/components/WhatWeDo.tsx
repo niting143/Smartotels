@@ -56,9 +56,17 @@ export default function WhatWeDo() {
     offset: ["start start", "end end"],
   });
 
-  // --- Horizontal Animation Logic (Deck of Cards) ---
-  const x2 = useTransform(scrollYProgress, [0.15, 0.45], ["110%", "0%"]);
-  const x3 = useTransform(scrollYProgress, [0.55, 0.85], ["110%", "0%"]);
+  // --- Vertical Stack Animation Logic ---
+  // Card 2 comes up and covers Card 1
+  const y2 = useTransform(scrollYProgress, [0.15, 0.45], ["110%", "0%"]);
+  // Card 3 comes up and covers Card 2
+  const y3 = useTransform(scrollYProgress, [0.55, 0.85], ["110%", "0%"]);
+
+  // Scaling effect for underlying cards to create depth
+  // Card 1 scales down when Card 2 enters
+  const scale1 = useTransform(scrollYProgress, [0.15, 0.45], [1, 0.95]);
+  // Card 2 scales down when Card 3 enters
+  const scale2 = useTransform(scrollYProgress, [0.55, 0.85], [1, 0.95]);
 
   // --- Vertical Text Parallax (Subtle Floating Effect) ---
   // Text moves slightly upward as we scroll deep into the section
@@ -74,10 +82,11 @@ export default function WhatWeDo() {
       <div className="relative lg:sticky lg:top-0 h-auto lg:h-screen overflow-hidden flex flex-col">
         
         {/* --- CONTENT CONTAINER --- */}
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-0 md:px-12 pt-[15vh] lg:pt-[25vh] pb-12 lg:pb-24">
+        {/* Reduced top padding and made height responsive */}
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-0 md:px-12 pt-[10vh] lg:pt-[15vh] pb-8 lg:pb-12 h-full flex flex-col">
           
           {/* Main Title */}
-          <div className="text-center mb-8 lg:mb-12 shrink-0 relative z-40">
+          <div className="text-center mb-6 lg:mb-8 shrink-0 relative z-40">
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -90,10 +99,13 @@ export default function WhatWeDo() {
           </div>
 
           {/* --- STACK AREA --- */}
-          <div className="relative w-full h-auto lg:h-[600px] flex flex-col gap-8 lg:block">
+          <div className="relative w-full grow flex flex-col gap-8 lg:block lg:h-auto">
             
             {/* CARD 1: Asset Management */}
-            <div className="relative w-full h-auto lg:absolute lg:inset-0 lg:h-full bg-white shadow-2xl border border-gray-100 z-10">
+            <motion.div 
+               style={{ scale: isDesktop ? scale1 : 1 }}
+               className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-2xl border border-gray-100 z-10 origin-top"
+            >
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 h-full">
                 {/* Text Area */}
                 <div className="lg:col-span-2 flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1 overflow-hidden">
@@ -135,12 +147,12 @@ export default function WhatWeDo() {
                   </motion.p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* CARD 2: Intelligence + Foresight */}
             <motion.div 
-              style={{ x: isDesktop ? x2 : 0 }} 
-              className="relative w-full h-auto lg:absolute lg:inset-0 lg:h-full bg-white shadow-2xl border border-gray-100 z-20"
+              style={{ y: isDesktop ? y2 : 0, scale: isDesktop ? scale2 : 1 }} 
+              className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-2xl border border-gray-100 z-20 origin-top"
             >
                <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 h-full">
                  <div className="lg:col-span-1 bg-[#2F4E54] text-[#D9D9D9] p-6 lg:p-12 flex flex-col justify-center items-center text-center order-3 lg:order-1">
@@ -184,8 +196,8 @@ export default function WhatWeDo() {
 
             {/* CARD 3: Development + Advisory */}
             <motion.div 
-              style={{ x: isDesktop ? x3 : 0 }} 
-              className="relative w-full h-auto lg:absolute lg:inset-0 lg:h-full bg-white shadow-2xl border border-gray-100 z-30"
+              style={{ y: isDesktop ? y3 : 0 }} 
+              className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-2xl border border-gray-100 z-30 origin-top"
             >
                <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 h-full">
                  <div className="lg:col-span-2 flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1 overflow-hidden">

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import brand1 from "../assets/brand1.png";
 import brand2 from "../assets/brand2.png";
@@ -21,8 +21,7 @@ function ParallaxImage({ src, alt }: { src: StaticImageData; alt: string }) {
   // We keep the vertical movement for the parallax effect
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
-  // SCALE FIXED: Set to 1. 
-  // This prevents the "zoom" that cuts off edges, while 'object-cover' ensures it fills the width.
+  // SCALE FIXED: Set to 1.
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
   return (
@@ -32,8 +31,6 @@ function ParallaxImage({ src, alt }: { src: StaticImageData; alt: string }) {
           src={src} 
           alt={alt} 
           fill 
-          // RETURNED TO OBJECT-COVER: This ensures the image fills the width/height (no grey bars).
-          // Combined with scale=1, this is the most "full size" you can get in a filled box.
           className="object-cover"
           sizes="(max-width: 1024px) 100vw, 50vw" 
           priority={false}
@@ -45,49 +42,75 @@ function ParallaxImage({ src, alt }: { src: StaticImageData; alt: string }) {
 
 export default function BrandExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    checkIsDesktop();
+    window.addEventListener("resize", checkIsDesktop);
+    return () => window.removeEventListener("resize", checkIsDesktop);
+  }, []);
 
   // We track the main container for the text parallax effect
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end end"],
   });
+
+  // --- Vertical Stack Animation Logic ---
+  // Card 2 comes up and covers Card 1
+  const y2 = useTransform(scrollYProgress, [0.15, 0.45], ["110%", "0%"]);
+  // Card 3 comes up and covers Card 2
+  const y3 = useTransform(scrollYProgress, [0.55, 0.85], ["110%", "0%"]);
+
+  // Scaling effect for underlying cards to create depth
+  const scale1 = useTransform(scrollYProgress, [0.15, 0.45], [1, 0.95]);
+  const scale2 = useTransform(scrollYProgress, [0.55, 0.85], [1, 0.95]);
 
   const yText = useTransform(scrollYProgress, [0, 1], ["40px", "-40px"]);
 
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full bg-[#FAFAFA] text-black"
+      className="relative h-auto lg:h-[300vh] bg-[#FAFAFA] text-black"
     >
       
-      
-      {/* Content */}
-      <div className="relative z-10 pt-12 lg:pb-32 w-full max-w-[1600px] mx-auto px-0 md:px-12">
+      {/* Sticky Container */}
+      <div className="relative lg:sticky lg:top-0 h-auto lg:h-screen overflow-hidden flex flex-col">
 
-        {/* Section Title */}
-        <div className="text-center mb-12 md:mb-24 relative z-10">
-           <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={textTransition}
-              className="text-2xl md:text-5xl font-open-sans font-extrabold uppercase tracking-widest text-[#BEA787] inline-block bg-[#FAFAFA]/80 backdrop-blur-sm px-4 py-2"
-            >
-              Brand + Experience
-            </motion.h2>
-        </div>
+        {/* --- CONTENT CONTAINER --- */}
+        {/* Adjusted padding to be responsive and prevent cropping on small screens */}
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-0 md:px-12 pt-[10vh] lg:pt-[15vh] pb-8 lg:pb-12 h-full flex flex-col">
 
-        <div className="flex flex-col w-full gap-8 lg:gap-0">
-          
-           {/* --- ROW 1: Hospitality Technology --- */}
-           <div className="relative lg:sticky lg:top-[17vh] z-10 py-4 lg:py-8">
-              <div className="bg-white shadow-xl">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+          {/* Section Title */}
+          <div className="text-center mb-6 lg:mb-8 shrink-0 relative z-40">
+             <motion.h2 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={textTransition}
+                className="text-2xl md:text-5xl font-open-sans font-extrabold uppercase tracking-widest text-[#BEA787] inline-block bg-[#FAFAFA]/80 backdrop-blur-sm px-4 py-2"
+              >
+                Brand + Experience
+              </motion.h2>
+          </div>
+
+          {/* --- STACK AREA --- */}
+          <div className="relative w-full grow flex flex-col gap-8 lg:block lg:h-auto">
+            
+             {/* --- ROW 1: Hospitality Technology --- */}
+             <motion.div 
+               style={{ scale: isDesktop ? scale1 : 1 }}
+               className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-xl z-10 origin-top"
+             >
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 h-full">
                    {/* Left: Text Block */}
-                   <div className="flex flex-col h-auto lg:h-full lg:min-h-[600px] gap-2">
+                   <div className="flex flex-col h-auto lg:h-full gap-0 lg:gap-2 order-2 lg:order-1">
                       <div className="p-8 lg:p-12 bg-[#E6E6E6] grow flex flex-col justify-center overflow-hidden">
                         <motion.div
-                          style={{ y: yText }}
+                          style={{ y: isDesktop ? yText : 0 }}
                           initial={{ opacity: 0, y: 30 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
@@ -102,7 +125,7 @@ export default function BrandExperience() {
                             </p>
                         </motion.div>
                       </div>
-                      <div className="bg-[#2F4E54] text-white p-6 lg:p-10 shrink-0">
+                      <div className="bg-[#2F4E54] text-white p-6 lg:p-8 shrink-0 flex items-center justify-center">
                         <motion.p 
                           initial={{ opacity: 0, y: 30 }}
                           whileInView={{ opacity: 1, y: 0 }}
@@ -116,27 +139,28 @@ export default function BrandExperience() {
                    </div>
                    
                    {/* Right: Image Block */}
-                   <div className="relative h-[250px] lg:h-auto w-full">
+                   <div className="relative h-[250px] lg:h-full w-full order-1 lg:order-2">
                       <ParallaxImage src={brand3} alt="Hospitality Technology" />
                    </div>
                 </div>
-              </div>
-           </div>
+             </motion.div>
 
-           {/* --- ROW 2: Experience Design --- */}
-           <div className="relative lg:sticky lg:top-[20vh] z-20 py-4 lg:py-8">
-             <div className="bg-white shadow-xl">
-               <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+             {/* --- ROW 2: Experience Design --- */}
+             <motion.div 
+               style={{ y: isDesktop ? y2 : 0, scale: isDesktop ? scale2 : 1 }}
+               className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-xl z-20 origin-top"
+             >
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 h-full">
                   {/* Left: Image Block */}
-                  <div className="relative h-[250px] lg:h-auto w-full order-2 lg:order-1">
+                  <div className="relative h-[250px] lg:h-full w-full order-1 lg:order-1">
                      <ParallaxImage src={brand2} alt="Experience Design" />
                   </div>
 
                   {/* Right: Text Block */}
-                  <div className="flex flex-col h-auto lg:h-full lg:min-h-[600px] order-1 lg:order-2 gap-2">
+                  <div className="flex flex-col h-auto lg:h-full order-2 lg:order-2 gap-0 lg:gap-2">
                      <div className="p-8 lg:p-12 bg-[#E6E6E6] grow flex flex-col justify-center overflow-hidden">
                        <motion.div
-                          style={{ y: yText }}
+                          style={{ y: isDesktop ? yText : 0 }}
                           initial={{ opacity: 0, y: 30 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
@@ -151,7 +175,7 @@ export default function BrandExperience() {
                            </p>
                        </motion.div>
                      </div>
-                      <div className="bg-[#2F4E54] text-white p-6 lg:p-10 shrink-0">
+                      <div className="bg-[#2F4E54] text-white p-6 lg:p-8 shrink-0 flex items-center justify-center">
                        <motion.p 
                           initial={{ opacity: 0, y: 30 }}
                           whileInView={{ opacity: 1, y: 0 }}
@@ -164,18 +188,19 @@ export default function BrandExperience() {
                       </div>
                   </div>
                </div>
-             </div>
-           </div>
+             </motion.div>
 
-           {/* --- ROW 3: Brand Architecture --- */}
-           <div className="relative lg:sticky lg:top-[25vh] z-30 py-4 lg:py-8">
-             <div className="bg-white shadow-xl">
-               <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+             {/* --- ROW 3: Brand Architecture --- */}
+             <motion.div 
+               style={{ y: isDesktop ? y3 : 0 }}
+               className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-xl z-30 origin-top"
+             >
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 h-full">
                    {/* Left: Text Block */}
-                   <div className="flex flex-col h-auto lg:h-full lg:min-h-[600px] gap-2">
+                   <div className="flex flex-col h-auto lg:h-full gap-0 lg:gap-2 order-2 lg:order-1">
                       <div className="p-8 lg:p-12 bg-[#E6E6E6] grow flex flex-col justify-center overflow-hidden">
                         <motion.div
-                          style={{ y: yText }}
+                          style={{ y: isDesktop ? yText : 0 }}
                           initial={{ opacity: 0, y: 30 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
@@ -190,7 +215,7 @@ export default function BrandExperience() {
                             </p>
                         </motion.div>
                       </div>
-                      <div className="bg-[#2F4E54] text-white p-6 lg:p-10 shrink-0">
+                      <div className="bg-[#2F4E54] text-white p-6 lg:p-8 shrink-0 flex items-center justify-center">
                         <motion.p 
                           initial={{ opacity: 0, y: 30 }}
                           whileInView={{ opacity: 1, y: 0 }}
@@ -204,13 +229,13 @@ export default function BrandExperience() {
                    </div>
 
                    {/* Right: Image Block */}
-                   <div className="relative h-[250px] lg:h-auto w-full">
+                   <div className="relative h-[250px] lg:h-full w-full order-1 lg:order-2">
                       <ParallaxImage src={brand1} alt="Brand Architecture" />
                    </div>
                </div>
-             </div>
-           </div>
+             </motion.div>
 
+          </div>
         </div>
       </div>
     </section>
