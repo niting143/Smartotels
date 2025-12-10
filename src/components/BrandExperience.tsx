@@ -120,7 +120,7 @@ export default function BrandExperience() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ ...textTransition, delay: 0.4 }}
-                className="relative h-[250px] lg:h-full w-full order-2 lg:order-2"
+                className="relative h-[70vh] lg:h-full w-full order-2 lg:order-2"
               >
                 <ParallaxImage src={brand3} alt="Hospitality Technology" />
               </motion.div>
@@ -144,7 +144,7 @@ export default function BrandExperience() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ ...textTransition, delay: 0.3 }}
-                className="relative h-[250px] lg:h-full w-full order-2 lg:order-1"
+                className="relative h-[70vh] lg:h-full w-full order-2 lg:order-1"
               >
                 <ParallaxImage src={brand2} alt="Experience Design" />
               </motion.div>
@@ -230,7 +230,7 @@ export default function BrandExperience() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ ...textTransition, delay: 0.4 }}
-                className="relative h-[250px] lg:h-full w-full order-2 lg:order-2"
+                className="relative h-[70vh] lg:h-full w-full order-2 lg:order-2"
               >
                 <ParallaxImage src={brand1} alt="Brand Architecture" />
               </motion.div>

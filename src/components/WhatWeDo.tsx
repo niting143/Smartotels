@@ -105,7 +105,7 @@ export default function WhatWeDo() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ ...textTransition, delay: 0.4 }}
-                  className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2"
+                  className="lg:col-span-1 relative w-full h-[70vh] lg:h-full order-1 lg:order-2"
                 >
                    <ParallaxImage src={performance1} alt="Asset Management" />
                 </motion.div>
@@ -151,7 +151,7 @@ export default function WhatWeDo() {
                    whileInView={{ opacity: 1, scale: 1 }}
                    viewport={{ once: true, margin: "-50px" }}
                    transition={{ ...textTransition, delay: 0.4 }}
-                   className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2"
+                   className="lg:col-span-1 relative w-full h-[70vh] lg:h-full order-1 lg:order-2"
                  >
                     <ParallaxImage src={performance2} alt="Intelligence" />
                  </motion.div>
@@ -216,7 +216,7 @@ export default function WhatWeDo() {
                    whileInView={{ opacity: 1, scale: 1 }}
                    viewport={{ once: true, margin: "-50px" }}
                    transition={{ ...textTransition, delay: 0.4 }}
-                   className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2"
+                   className="lg:col-span-1 relative w-full h-[70vh] lg:h-full order-1 lg:order-2"
                  >
                     <ParallaxImage src={performance3} alt="Development" />
                  </motion.div>

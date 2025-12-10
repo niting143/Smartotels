@@ -102,8 +102,7 @@ export default function WhoWeAre() {
                 Intelligence is our foundation. Hospitality is our language.
               </h2>
               <p className="text-[#474747] text-lg font-regular font-open-sans leading-relaxed">
-                Smartotels operates at the intersection of hospitality, finance, and design. We apply data-native intelligence and disciplined structuring to an industry shaped by emotion and experience.
-              </p>
+Smartotels operates at the intersection of hospitality, finance, and design. We apply data-native intelligence and disciplined structuring to an industry shaped by emotion and experience. The result is a platform built for investors and operators who demand clarity, performance, and enduring value.              </p>
             </motion.div>
           </div>
         </div>
