@@ -21,7 +21,7 @@ import video1 from "../assets/hero1.mp4";
 import video2 from "../assets/hero2.mp4";
 import video3 from "../assets/hero3.mp4";
 import video4 from "../assets/hero4.mp4";
-import logoWhite from "../assets/smartotels-final-logo-white.svg";
+import logoWhite from "../assets/smartotels-final-logo-colored.svg";
 
 // Updated Interface
 interface Slide {
@@ -270,7 +270,7 @@ export default function HeroCarousel() {
       >
         
         {/* TEXT CONTAINER (Original dimensions restored) */}
-        <div className="relative w-full flex items-center justify-center h-[15vh] md:h-[22vh] mb-2 md:mb-4">
+        <div className="relative w-full flex items-center justify-center h-[15vh] md:h-[22vh] mb-8 md:mb-12">
             <AnimatePresence mode="wait">
             <motion.div
                 key={currentIndex}

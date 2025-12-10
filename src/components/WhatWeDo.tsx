@@ -1,14 +1,22 @@
 "use client";
 
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Image, { StaticImageData } from "next/image";
 import performance1 from "../assets/perfromance.png";
 import performance2 from "../assets/perfromance2.png";
 import performance3 from "../assets/performance3.png";
 
-// Reusable transition
-const textTransition = { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const };
+// Enhanced Fenix-style transitions
+const textTransition = { 
+  duration: 1.2, 
+  ease: [0.16, 1, 0.3, 1] as const 
+};
+
+const cardTransition = {
+  duration: 1.4,
+  ease: [0.16, 1, 0.3, 1] as const
+};
 
 // --- PARALLAX IMAGE COMPONENT ---
 function ParallaxImage({ src, alt }: { src: StaticImageData; alt: string }) {
@@ -38,83 +46,44 @@ function ParallaxImage({ src, alt }: { src: StaticImageData; alt: string }) {
 }
 
 export default function WhatWeDo() {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const checkIsDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    checkIsDesktop();
-    window.addEventListener("resize", checkIsDesktop);
-    return () => window.removeEventListener("resize", checkIsDesktop);
-  }, []);
-
-  // Track main section scroll
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end end"],
-  });
-
-  // --- Vertical Stack Animation Logic ---
-  // Card 2 comes up and covers Card 1
-  const y2 = useTransform(scrollYProgress, [0.15, 0.45], ["110%", "0%"]);
-  // Card 3 comes up and covers Card 2
-  const y3 = useTransform(scrollYProgress, [0.55, 0.85], ["110%", "0%"]);
-
-  // Scaling effect for underlying cards to create depth
-  // Card 1 scales down when Card 2 enters
-  const scale1 = useTransform(scrollYProgress, [0.15, 0.45], [1, 0.95]);
-  // Card 2 scales down when Card 3 enters
-  const scale2 = useTransform(scrollYProgress, [0.55, 0.85], [1, 0.95]);
-
-  // --- Vertical Text Parallax (Subtle Floating Effect) ---
-  // Text moves slightly upward as we scroll deep into the section
-  const yText = useTransform(scrollYProgress, [0, 1], ["30px", "-30px"]);
-
   return (
     <section 
-      ref={targetRef} 
-      className="relative h-auto lg:h-[300vh] bg-white text-black"
+      className="relative h-auto bg-white text-black"
     >
       
-      {/* Sticky Container */}
-      <div className="relative lg:sticky lg:top-0 h-auto lg:h-screen overflow-hidden flex flex-col">
-        
-        {/* --- CONTENT CONTAINER --- */}
-        {/* Reduced top padding and made height responsive */}
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-0 md:px-12 pt-[10vh] lg:pt-[15vh] pb-8 lg:pb-12 h-full flex flex-col">
-          
-          {/* Main Title */}
-          <div className="text-center mb-6 lg:mb-8 shrink-0 relative z-40">
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={textTransition}
-              className="text-2xl md:text-5xl font-extrabold uppercase tracking-widest text-[#BEA787] inline-block bg-white/80 backdrop-blur-sm px-4 py-2"
-            >
-              Performance + Intelligence
-            </motion.h2>
-          </div>
+      {/* Main Title */}
+      <div className="text-center py-6 lg:py-8">
+        <motion.h2 
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ ...textTransition, delay: 0.2 }}
+          className="text-2xl md:text-5xl font-extrabold uppercase tracking-widest text-[#BEA787]"
+        >
+          Performance + Intelligence
+        </motion.h2>
+      </div>
 
-          {/* --- STACK AREA --- */}
-          <div className="relative w-full grow flex flex-col gap-8 lg:block lg:h-auto">
-            
-            {/* CARD 1: Asset Management */}
-            <motion.div 
-               style={{ scale: isDesktop ? scale1 : 1 }}
-               className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-2xl border border-gray-100 z-10 origin-top"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 h-full">
+      {/* --- STACK AREA --- */}
+      <div className="relative w-full flex flex-col">
+        
+        {/* CARD 1: Asset Management */}
+        <motion.div 
+           initial={{ opacity: 0, y: 100 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-150px" }}
+           transition={cardTransition}
+           className="relative w-full min-h-screen flex items-center bg-white"
+        >
+          <div className="w-full max-w-[1600px] mx-auto px-0 md:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 min-h-[80vh]">
                 {/* Text Area */}
-                <div className="lg:col-span-2 flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1 overflow-hidden">
+                <div className="lg:col-span-2 flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1">
                    <motion.div 
-                     style={{ y: isDesktop ? yText : 0 }} // Apply parallax only on Desktop
-                     initial={{ opacity: 0, y: 30 }}
+                     initial={{ opacity: 0, y: 60 }}
                      whileInView={{ opacity: 1, y: 0 }}
-                     viewport={{ once: true }}
-                     transition={textTransition}
+                     viewport={{ once: true, margin: "-50px" }}
+                     transition={{ ...textTransition, delay: 0.3 }}
                    >
                      <h3 className="text-2xl lg:text-5xl font-bold font-open-sans mb-4 leading-tight text-black">
                        Asset <br /> Management
@@ -131,53 +100,69 @@ export default function WhatWeDo() {
                    </motion.div>
                 </div>
                 {/* Image Area */}
-                <div className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ ...textTransition, delay: 0.4 }}
+                  className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2"
+                >
                    <ParallaxImage src={performance1} alt="Asset Management" />
-                </div>
+                </motion.div>
                 {/* Highlight Box */}
-                <div className="lg:col-span-1 bg-[#2F4E54] text-[#D9D9D9] p-6 lg:p-12 flex flex-col justify-center items-center text-center order-3 lg:order-3">
-                  <motion.p 
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ ...textTransition, delay: 0.2 }}
-                    className="text-base lg:text-2xl font-bold leading-relaxed"
-                  >
+                <motion.div 
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ ...textTransition, delay: 0.5 }}
+                  className="lg:col-span-1 bg-[#2F4E54] text-[#D9D9D9] p-6 lg:p-12 flex flex-col justify-center items-center text-center order-3 lg:order-3"
+                >
+                  <p className="text-base lg:text-2xl font-bold leading-relaxed">
                     The goal is clear: <br/> deliver stronger results and increase long term value.
-                  </motion.p>
-                </div>
-              </div>
-            </motion.div>
+                  </p>
+                </motion.div>
+            </div>
+          </div>
+        </motion.div>
 
             {/* CARD 2: Intelligence + Foresight */}
             <motion.div 
-              style={{ y: isDesktop ? y2 : 0, scale: isDesktop ? scale2 : 1 }} 
-              className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-2xl border border-gray-100 z-20 origin-top"
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-150px" }}
+              transition={cardTransition}
+              className="relative w-full min-h-screen flex items-center bg-white"
             >
-               <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 h-full">
-                 <div className="lg:col-span-1 bg-[#2F4E54] text-[#D9D9D9] p-6 lg:p-12 flex flex-col justify-center items-center text-center order-3 lg:order-1">
-                    <motion.p 
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ ...textTransition, delay: 0.2 }}
-                      className="text-base lg:text-2xl font-open-sans font-bold leading-relaxed"
-                    >
+              <div className="w-full max-w-[1600px] mx-auto px-0 md:px-12">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 min-h-[80vh]">
+                 <motion.div 
+                   initial={{ opacity: 0, x: -60 }}
+                   whileInView={{ opacity: 1, x: 0 }}
+                   viewport={{ once: true, margin: "-50px" }}
+                   transition={{ ...textTransition, delay: 0.3 }}
+                   className="lg:col-span-1 bg-[#2F4E54] text-[#D9D9D9] p-6 lg:p-12 flex flex-col justify-center items-center text-center order-3 lg:order-1"
+                 >
+                    <p className="text-base lg:text-2xl font-open-sans font-bold leading-relaxed">
                       Intelligence supports better strategy, clearer decisions, and more resilient assets.
-                    </motion.p>
-                 </div>
-                 <div className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2">
+                    </p>
+                 </motion.div>
+                 <motion.div 
+                   initial={{ opacity: 0, scale: 0.95 }}
+                   whileInView={{ opacity: 1, scale: 1 }}
+                   viewport={{ once: true, margin: "-50px" }}
+                   transition={{ ...textTransition, delay: 0.4 }}
+                   className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2"
+                 >
                     <ParallaxImage src={performance2} alt="Intelligence" />
-                 </div>
-                 <div className="lg:col-span-2 flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-3 overflow-hidden">
+                 </motion.div>
+                 <div className="lg:col-span-2 flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-3">
                     <motion.div
-                       style={{ y: isDesktop ? yText : 0 }}
-                       initial={{ opacity: 0, y: 30 }}
+                       initial={{ opacity: 0, y: 60 }}
                        whileInView={{ opacity: 1, y: 0 }}
-                       viewport={{ once: true }}
-                       transition={textTransition}
+                       viewport={{ once: true, margin: "-50px" }}
+                       transition={{ ...textTransition, delay: 0.5 }}
                     >
-                       <h3 className="text-2xl lg:text-5xl font-open-sans font-semibold mb-4 leading-tight text-black">
+                       <h3 className="text-2xl lg:text-5xl font-open-sans font-bold mb-4 leading-tight text-black">
                          Intelligence + <br/> Foresight
                        </h3>
                        <p className="text-base lg:text-xl font-open-sans italic font-semibold mb-4 lg:mb-8 text-black">
@@ -191,22 +176,26 @@ export default function WhatWeDo() {
                        </p>
                     </motion.div>
                  </div>
-               </div>
+                </div>
+              </div>
             </motion.div>
 
             {/* CARD 3: Development + Advisory */}
             <motion.div 
-              style={{ y: isDesktop ? y3 : 0 }} 
-              className="relative w-full h-auto lg:h-[70vh] lg:max-h-[800px] lg:absolute lg:top-0 lg:left-0 bg-white shadow-2xl border border-gray-100 z-30 origin-top"
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-150px" }}
+              transition={cardTransition}
+              className="relative w-full min-h-screen flex items-center bg-white"
             >
-               <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 h-full">
-                 <div className="lg:col-span-2 flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1 overflow-hidden">
+              <div className="w-full max-w-[1600px] mx-auto px-0 md:px-12">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-2 min-h-[80vh]">
+                 <div className="lg:col-span-2 flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1">
                     <motion.div
-                       style={{ y: isDesktop ? yText : 0 }}
-                       initial={{ opacity: 0, y: 30 }}
+                       initial={{ opacity: 0, y: 60 }}
                        whileInView={{ opacity: 1, y: 0 }}
-                       viewport={{ once: true }}
-                       transition={textTransition}
+                       viewport={{ once: true, margin: "-50px" }}
+                       transition={{ ...textTransition, delay: 0.3 }}
                     >
                        <h3 className="text-2xl lg:text-5xl font-open-sans font-bold mb-4 leading-tight text-black">
                          Development + <br/> Advisory
@@ -222,25 +211,30 @@ export default function WhatWeDo() {
                        </p>
                     </motion.div>
                  </div>
-                 <div className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2">
+                 <motion.div 
+                   initial={{ opacity: 0, scale: 0.95 }}
+                   whileInView={{ opacity: 1, scale: 1 }}
+                   viewport={{ once: true, margin: "-50px" }}
+                   transition={{ ...textTransition, delay: 0.4 }}
+                   className="lg:col-span-1 relative w-full h-[250px] lg:h-full order-1 lg:order-2"
+                 >
                     <ParallaxImage src={performance3} alt="Development" />
-                 </div>
-                 <div className="lg:col-span-1 bg-[#2F4E54] text-[#D9D9D9] p-6 lg:p-12 flex flex-col justify-center items-center text-center order-3 lg:order-3">
-                    <motion.p 
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ ...textTransition, delay: 0.2 }}
-                      className="text-base lg:text-2xl font-bold leading-relaxed"
-                    >
+                 </motion.div>
+                 <motion.div 
+                   initial={{ opacity: 0, y: 60 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true, margin: "-50px" }}
+                   transition={{ ...textTransition, delay: 0.5 }}
+                   className="lg:col-span-1 bg-[#2F4E54] text-[#D9D9D9] p-6 lg:p-12 flex flex-col justify-center items-center text-center order-3 lg:order-3"
+                 >
+                    <p className="text-base lg:text-2xl font-bold leading-relaxed">
                       The aim is straightforward: <br/> build stronger assets and create durable hospitality platforms.
-                    </motion.p>
-                 </div>
-               </div>
+                    </p>
+                 </motion.div>
+                </div>
+              </div>
             </motion.div>
 
-          </div>
-        </div>
       </div>
     </section>
   );

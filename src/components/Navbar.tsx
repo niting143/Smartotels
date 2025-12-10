@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../assets/smartotels-final-logo-white.svg";
 import colouredLogo from "../assets/smartotels-final-logo-colored.svg";
 import { useLenis } from "lenis/react";
 import gsap from "gsap";
@@ -128,17 +127,17 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={showNavbar ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-12 transition-all duration-300 pointer-events-none md:pointer-events-auto"
+      className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-4 transition-all duration-300 pointer-events-none md:pointer-events-auto"
     >
       <div className="flex items-center justify-between pointer-events-auto">
         {/* LOGO */}
         <Link href="/" className="relative block z-50">
           <Image
-            src={isDarkBackground ? logo : colouredLogo}
+            src={colouredLogo}
             alt="smartotels logo"
             width={200}
             height={40}
-            className="w-auto h-4 md:h-8 object-contain transition-opacity duration-300"
+            className="w-auto h-4 md:h-6 object-contain transition-opacity duration-300"
             priority
           />
         </Link>
@@ -151,11 +150,7 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleNavigation(e, item.href)}
-                className={`px-4 py-2 text-xs font-medium uppercase tracking-wider rounded-md transition-colors cursor-pointer ${
-                  isDarkBackground 
-                    ? "text-black bg-white/80 hover:bg-white" 
-                    : "text-white bg-black/80 hover:bg-black"
-                }`}
+                className={`px-4 py-2 text-xs font-medium uppercase tracking-wider rounded-md transition-colors cursor-pointer text-black bg-white/80 hover:bg-white`}
               >
                 {item.name}
               </a>

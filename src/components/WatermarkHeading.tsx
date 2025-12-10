@@ -57,7 +57,7 @@ export default function WatermarkHeading() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-screen z-40 pointer-events-none flex flex-col justify-start pt-20 md:pt-16 pb-16 overflow-hidden md:mix-blend-difference">
+    <div className="fixed top-0 left-0 w-full h-screen z-40 pointer-events-none flex flex-col justify-start pt-20 md:pt-16 pb-16 overflow-hidden">
        <AnimatePresence mode="wait">
          {activeText && (
            <motion.h1 
@@ -66,7 +66,7 @@ export default function WatermarkHeading() {
              animate={{ opacity: 1, y: 0 }}
              exit={{ opacity: 0, y: -50 }}
              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-             className="text-[12vw] md:text-[8vw] font-bold font-open-sans text-[#E6E6E6] md:text-[#E6E6E6] leading-none tracking-tighter whitespace-nowrap pl-0 md:pl-0 will-change-transform"
+             className="text-[12vw] md:text-[8vw] font-bold font-open-sans text-[#DCDCDC] leading-none tracking-tighter whitespace-nowrap pl-0 md:pl-0 will-change-transform"
            >
              {activeText}
            </motion.h1>
