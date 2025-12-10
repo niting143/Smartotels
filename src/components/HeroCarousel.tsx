@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Open_Sans } from "next/font/google";
@@ -193,6 +193,20 @@ export default function HeroCarousel() {
     },
   };
 
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Check if video is already ready (e.g. from cache)
+    if (videoRef.current && videoRef.current.readyState >= 3) {
+      setIsVideoLoaded(true);
+    }
+  }, []);
+
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+  };
+
   return (
     <section
       className={cn(
@@ -213,12 +227,26 @@ export default function HeroCarousel() {
           <div className="absolute inset-0 bg-neutral-950/30 z-10" />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-neutral-950/30 z-10" />
           
+          {/* Green Loading Overlay */}
+          <div 
+            className={cn(
+              "absolute inset-0 bg-[#2F4E54] z-20 transition-opacity duration-700 ease-in-out",
+              isVideoLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+            )}
+          />
+
           <video
+            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
-            className="object-cover w-full h-full opacity-80"
+            onLoadedData={handleVideoLoad}
+            onCanPlay={handleVideoLoad}
+            className={cn(
+               "object-cover w-full h-full transition-opacity duration-700 ease-in-out",
+               isVideoLoaded ? "opacity-80" : "opacity-0"
+            )}
           >
             <source src={slides[currentIndex].videoUrl} type="video/mp4" />
           </video>

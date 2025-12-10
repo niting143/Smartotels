@@ -14,9 +14,9 @@ type LoadingContextType = {
 const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
 
 export function LoadingProvider({ children }: { children: ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true); // Splash screen active
-  const [showNavbar, setShowNavbar] = useState(false); // Navbar visible
-  const [showContent, setShowContent] = useState(false); // Main content visible
+  const [isLoading, setIsLoading] = useState(false); // Splash screen active
+  const [showNavbar, setShowNavbar] = useState(true); // Navbar visible
+  const [showContent, setShowContent] = useState(true); // Main content visible
 
   return (
     <LoadingContext.Provider

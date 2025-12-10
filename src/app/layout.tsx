@@ -3,7 +3,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
-import Preloader from "@/components/Preloader";
+
 import PageWrapper from "@/components/PageWrapper";
 
 const openSans = Open_Sans({
@@ -28,7 +28,7 @@ export default function RootLayout({
         className={`${openSans.variable} font-sans antialiased bg-[#012A32] text-white`}
       >
         <SmoothScroll>
-          <Preloader />
+
 
           <Navbar />
           <PageWrapper>{children}</PageWrapper>
