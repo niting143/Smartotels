@@ -3,28 +3,32 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Open_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { useLenis } from "lenis/react";
 import gsap from "gsap";
 import { useRouter } from "next/navigation";
+import Image, { StaticImageData } from "next/image"; // Added Image import
 
-// 1. Font Configuration
-const openSans = Open_Sans({
+// Configure Inter
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["800"], // Extra Bold
-  variable: "--font-open-sans",
+  variable: "--font-inter",
+  weight: ["400", "600", "800", "900"],
 });
 
-// 2. Video Assets (Ensure your bundler handles these imports)
+// Video Assets
 import video1 from "../assets/hero1.mp4";
 import video2 from "../assets/hero2.mp4";
 import video3 from "../assets/hero3.mp4";
 import video4 from "../assets/hero4.mp4";
+import logoWhite from "../assets/smartotels-final-logo-white.svg";
 
+// Updated Interface
 interface Slide {
   id: number;
   videoUrl: string;
   text: string[];
+  logoImage?: StaticImageData; // Added optional logo
 }
 
 const slides: Slide[] = [
@@ -36,7 +40,7 @@ const slides: Slide[] = [
   {
     id: 2,
     videoUrl: video2,
-    text: ["EXPERIENCE", "DESIGNED WITH INTELLIGENCE"],
+    text: ["EXPERIENCE DESIGNED WITH", "INTELLIGENCE"],
   },
   {
     id: 3,
@@ -46,14 +50,15 @@ const slides: Slide[] = [
   {
     id: 4,
     videoUrl: video4,
-    text: ["THIS IS", "SMARTOTELS"],
+    text: ["THIS IS"], // Text kept
+    logoImage: logoWhite, // Logo added
   },
 ];
 
 const ARCHITECTURAL_EASE = [0.76, 0, 0.24, 1] as const;
 const SLIDE_DURATION = 7000;
 
-// 3. Updated Primary Button Component
+// Primary Button Component
 const PrimaryButton = ({
   children,
   href = "#",
@@ -70,12 +75,9 @@ const PrimaryButton = ({
     onClick={(e) => onClick && onClick(e, href)}
     className={cn(
       "group relative overflow-hidden flex items-center justify-center shadow-2xl transition-all z-50",
-      // Base Mobile Styles: Full width, tracking, padding
-      "w-full py-4 text-xs tracking-widest px-2 text-center",
-      // Base Desktop Styles:
+      "w-full py-3 text-xs tracking-widest px-4 text-center font-opensans",
       "md:py-4 md:text-sm",
-      "bg-white text-neutral-950 font-medium uppercase rounded-sm",
-      // Merge custom classes (allows overriding width on desktop)
+      "bg-white text-neutral-950 font-regular font-opensans uppercase rounded-sm",
       className
     )}
   >
@@ -113,19 +115,15 @@ export default function HeroCarousel() {
     e.preventDefault();
 
     if (href.startsWith("#")) {
-      // Internal Scroll Link
       const targetId = href.replace("#", "");
       const targetElement = document.getElementById(targetId);
 
       if (targetElement && lenis) {
-        // 1. Smooth Scroll to the target
         lenis.scrollTo(targetElement, {
           duration: 1.5,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing for smoother feel
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
 
-        // 2. GSAP Animation: Card comes from left to right
-        // We animate the target element itself
         gsap.fromTo(
           targetElement,
           { x: "-100%", opacity: 0 },
@@ -134,12 +132,11 @@ export default function HeroCarousel() {
             opacity: 1,
             duration: 1,
             ease: "power3.out",
-            delay: 0.2, // Slight delay to let scroll start
+            delay: 0.2,
           }
         );
       }
     } else {
-      // External Page Link
       router.push(href);
     }
   };
@@ -197,7 +194,6 @@ export default function HeroCarousel() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Check if video is already ready (e.g. from cache)
     if (videoRef.current && videoRef.current.readyState >= 3) {
       setIsVideoLoaded(true);
     }
@@ -211,7 +207,7 @@ export default function HeroCarousel() {
     <section
       className={cn(
         "relative h-[100dvh] w-full overflow-hidden bg-[#2F4E54] text-white",
-        openSans.className
+        inter.className
       )}
     >
       {/* 1. Background Layer */}
@@ -227,7 +223,6 @@ export default function HeroCarousel() {
           <div className="absolute inset-0 bg-neutral-950/30 z-10" />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-neutral-950/30 z-10" />
           
-          {/* Green Loading Overlay */}
           <div 
             className={cn(
               "absolute inset-0 bg-[#2F4E54] z-20 transition-opacity duration-700 ease-in-out",
@@ -253,10 +248,11 @@ export default function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
-      {/* 2. Main Content Layer - Centered Text & Buttons */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none px-4 md:px-12">
-        {/* Text Container - Centered */}
-        <div className="flex-1 flex items-center justify-center w-full">
+      {/* 2. Main Content Layer */}
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 pointer-events-none md:px-12">
+        
+        {/* TEXT CONTAINER (Original dimensions restored) */}
+        <div className="relative w-full flex items-end justify-center h-[22vh] md:h-[22vh] mb-4">
             <AnimatePresence mode="wait">
             <motion.div
                 key={currentIndex}
@@ -264,56 +260,69 @@ export default function HeroCarousel() {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="flex flex-col items-center justify-center text-center w-full max-w-[90vw]"
+                className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end w-full text-center"
             >
-                {/* Text Lines */}
-                <div className="flex flex-col items-center gap-y-0 md:gap-y-2">
-                {slides[currentIndex].text.map((line, index) => (
-                    <div key={index} className="overflow-hidden relative">
-                    <motion.span
+                <div className="flex flex-col items-center">
+                  {slides[currentIndex].text.map((line, index) => (
+                    <div key={index} className="relative overflow-hidden">
+                      <motion.span
                         variants={lineVariants}
                         className={cn(
-                        "block font-extrabold uppercase tracking-tight text-white leading-[0.8] md:leading-[0.8]",
-                        // Big Text Sizing - UNStudio Style
-                        "text-[13vw] md:text-[10vw] lg:text-[8vw] xl:text-[7vw]"
+                          "flex font-black uppercase tracking-tighter text-white whitespace-nowrap",
+                          "text-[7vw] md:text-[6.5vw]",
+                          "leading-[0.85] pb-[4vw] md:pb-[1vw]" 
                         )}
-                    >
+                      >
                         {line}
-                    </motion.span>
+                      </motion.span>
                     </div>
-                ))}
+                  ))}
+
+                  {/* Logo Logic Added Here - Uses similar padding to text to maintain flow */}
+                  {slides[currentIndex].logoImage && (
+                    <div className="relative overflow-hidden pb-[4vw] md:pb-[1vw]">
+                      <motion.div
+                         variants={lineVariants}
+                         // Sized to fit comfortably within the original container height
+                         className="relative w-[50vw] h-[10vw] md:w-[30vw] md:h-[4vw]"
+                      >
+                        <Image 
+                          src={slides[currentIndex].logoImage} 
+                          alt="Brand Logo" 
+                          fill
+                          className="object-contain"
+                          priority
+                        />
+                      </motion.div>
+                    </div>
+                  )}
                 </div>
             </motion.div>
             </AnimatePresence>
         </div>
 
-        {/* Buttons - Static Position below text */}
-        <div className="pointer-events-auto pb-16 md:pb-24">
-            <div className="flex flex-col md:flex-row gap-3 md:gap-6 w-auto">
-                <PrimaryButton 
-                    href="#section-what-we-do"
-                    onClick={handleNavigation}
-                    // Reverted Style: Original Structured Look
-                    className="md:w-[280px] rounded-sm"
-                >
-                    Performance + Intelligence
-                </PrimaryButton>
+        {/* Buttons */}
+        <div className="flex flex-col w-full max-w-md md:max-w-none md:w-auto gap-3 pointer-events-auto md:flex-row md:gap-4 items-center justify-center">
+            <PrimaryButton 
+                href="#section-what-we-do"
+                onClick={handleNavigation}
+                className="w-[85%] md:w-[300px] rounded-lg"
+            >
+                Performance + Intelligence
+            </PrimaryButton>
 
-                <PrimaryButton 
-                    href="#section-brand-experience"
-                    onClick={handleNavigation}
-                    // Reverted Style: Original Structured Look
-                    className="md:w-[240px] rounded-sm"
-                >
-                    Brand + Experience
-                </PrimaryButton>
-            </div>
+            <PrimaryButton 
+                href="#section-brand-experience"
+                onClick={handleNavigation}
+                className="w-[85%] md:w-[240px] rounded-lg"
+            >
+                Brand + Experience
+            </PrimaryButton>
         </div>
       </div>
 
-      {/* 3. Bottom Controls - ABSOLUTE BOTTOM */}
+      {/* 3. Bottom Controls */}
       <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col items-center pb-8 md:pb-12 px-0 gap-8 pointer-events-auto">
-        {/* Indicators */}
         <div className="flex gap-4 h-2">
           {slides.map((_, index) => (
             <button
