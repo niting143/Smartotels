@@ -1,13 +1,46 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import footerImage from "../assets/footer.png";
+import Image, { StaticImageData } from "next/image";
+import footerImage from "../assets/Picture 3.jpeg";
 import logo from "../assets/logo.png";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { useLenis } from "lenis/react";
 import gsap from "gsap";
 import { useRouter } from "next/navigation";
+
+// --- PARALLAX IMAGE COMPONENT ---
+function ParallaxImage({ src, alt }: { src: StaticImageData; alt: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Vertical parallax movement
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  
+  // SCALE INCREASED: Set to 1.15 to create a bleed area.
+  // This ensures the image covers the container even when moved by the parallax effect.
+  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1.15]);
+
+  return (
+    <div ref={containerRef} className="relative w-full h-full overflow-hidden">
+      <motion.div style={{ y, scale }} className="w-full h-full relative">
+        <Image 
+          src={src} 
+          alt={alt} 
+          fill 
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 40vw"
+          priority={false}
+          placeholder="blur"
+        />
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Footer() {
   const lenis = useLenis();
@@ -49,38 +82,32 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="relative bg-[#313131]">
+    <footer id="section-footer" className="relative bg-[#313131]">
       {/* CTA Section */}
       <div className="relative py-12 md:py-24 px-4 md:px-12 flex justify-center items-center">
-        {/* Changed: Removed max-w-5xl, added w-full to stretch */}
-        <div className="bg-white shadow-2xl flex flex-col md:flex-row w-full">
+        {/* White Card Container */}
+        <div className="bg-white shadow-2xl flex flex-col md:flex-row w-full overflow-hidden">
           
-          {/* Image Side - Changed to 40% width on desktop */}
-          <div className="relative w-full md:w-[40%] h-[400px] md:h-auto">
-            <Image
-              src={footerImage}
-              alt="Antelope Canyon"
-              fill
-              className="object-cover"
-              placeholder="blur"
-            />
+          {/* Image Side with Parallax */}
+          {/* Added bg-[#313131] here to mask any gaps with the footer color instead of white */}
+          <div className="relative w-full md:w-[40%] h-[400px] md:h-auto bg-[#313131]">
+             <ParallaxImage src={footerImage} alt="Antelope Canyon" />
           </div>
 
-          {/* Text Side - Changed to 60% width on desktop */}
-          <div className="p-8 md:p-20 md:w-[60%] flex flex-col justify-center">
+          {/* Text Side */}
+          <div className="p-8 md:p-20 md:w-[60%] flex flex-col justify-center bg-white z-10 relative">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-base font-regular uppercase tracking-widest text-black mb-4">
+              <h3 className="text-[20px] font-regular uppercase tracking-widest text-black mb-4">
                 CONTACT US
               </h3>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-6 text-black">
                 Let us build something enduring.
               </h2>
-              {/* Added max-w-2xl to keep text readable on very wide screens */}
               <div className="max-w-2xl">
                 <p className="text-[#474747] text-base mb-6 leading-relaxed">
                   Smartotels is based in Dubai and operates across global markets.

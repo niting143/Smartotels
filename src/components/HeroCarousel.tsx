@@ -7,7 +7,7 @@ import { Inter } from "next/font/google";
 import { useLenis } from "lenis/react";
 import gsap from "gsap";
 import { useRouter } from "next/navigation";
-import Image, { StaticImageData } from "next/image"; // Added Image import
+import Image, { StaticImageData } from "next/image"; 
 
 // Configure Inter
 const inter = Inter({
@@ -28,7 +28,7 @@ interface Slide {
   id: number;
   videoUrl: string;
   text: string[];
-  logoImage?: StaticImageData; // Added optional logo
+  logoImage?: StaticImageData; 
 }
 
 const slides: Slide[] = [
@@ -50,8 +50,8 @@ const slides: Slide[] = [
   {
     id: 4,
     videoUrl: video4,
-    text: ["THIS IS"], // Text kept
-    logoImage: logoWhite, // Logo added
+    text: ["THIS IS"], 
+    logoImage: logoWhite, 
   },
 ];
 
@@ -198,9 +198,9 @@ export default function HeroCarousel() {
     // 1. Minimum 3s Timer
     const timer = setTimeout(() => {
       setMinTimeElapsed(true);
-    }, 3000);
+    }, 2000);
 
-    if (videoRef.current && videoRef.current.readyState >= 3) {
+    if (videoRef.current && videoRef.current.readyState >= 2) {
       setIsVideoLoaded(true);
     }
 
@@ -234,7 +234,7 @@ export default function HeroCarousel() {
           <div className="absolute inset-0 bg-neutral-950/30 z-10" />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-neutral-950/30 z-10" />
           
-          {/* Green Loading Overlay - Covers video */}
+          {/* Green Loading Overlay */}
           <div 
             className={cn(
               "absolute inset-0 bg-[#2F4E54] z-20 transition-opacity duration-1000 ease-in-out",
@@ -261,16 +261,16 @@ export default function HeroCarousel() {
       </AnimatePresence>
 
       {/* 2. Main Content Layer - TEXT & BUTTONS */}
-      {/* We fade this in alongside the video */}
       <div 
         className={cn(
-            "absolute inset-0 z-20 flex flex-col items-center justify-center px-4 pointer-events-none md:px-12 transition-opacity duration-1000 ease-in-out delay-200", // slight delay for text
+            "absolute inset-0 z-20 flex flex-col items-center justify-center px-4 pointer-events-none md:px-12 transition-opacity duration-1000 ease-in-out delay-200", 
             isReady ? "opacity-100" : "opacity-0"
         )}
       >
         
-        {/* TEXT CONTAINER (Original dimensions restored) */}
-        <div className="relative w-full flex items-center justify-center h-[15vh] md:h-[22vh] mb-8 md:mb-12">
+        {/* TEXT CONTAINER */}
+        {/* Changed mb-8 md:mb-12 to mb-24 md:mb-40 to push buttons down */}
+        <div className="relative w-full flex items-center justify-center h-[15vh] md:h-[22vh] mb-15 md:mb-20">
             <AnimatePresence mode="wait">
             <motion.div
                 key={currentIndex}
@@ -296,12 +296,11 @@ export default function HeroCarousel() {
                     </div>
                   ))}
 
-                  {/* Logo Logic Added Here - Uses similar padding to text to maintain flow */}
+                  {/* Logo Logic */}
                   {slides[currentIndex].logoImage && (
                     <div className="relative overflow-hidden pb-[4vw] md:pb-[1vw]">
                       <motion.div
                          variants={lineVariants}
-                         // Sized to fit comfortably within the original container height
                          className="relative w-[50vw] h-[10vw] md:w-[30vw] md:h-[4vw]"
                       >
                         <Image 
@@ -336,32 +335,6 @@ export default function HeroCarousel() {
             >
                 Brand + Experience
             </PrimaryButton>
-        </div>
-      </div>
-
-      {/* 3. Bottom Controls */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 flex flex-col items-center pb-8 md:pb-12 px-0 gap-8 pointer-events-auto">
-        <div className="flex gap-4 h-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className="group relative h-10 w-[60px] md:w-[100px] flex items-center justify-center"
-              aria-label={`Go to slide ${index + 1}`}
-            >
-              <div className="absolute w-full h-[2px] bg-white/20 rounded-full overflow-hidden">
-                {index === currentIndex && (
-                  <motion.div
-                    key={key}
-                    initial={{ width: "0%" }}
-                    animate={{ width: "100%" }}
-                    transition={{ duration: SLIDE_DURATION / 1000, ease: "linear" }}
-                    className="h-full bg-white"
-                  />
-                )}
-              </div>
-            </button>
-          ))}
         </div>
       </div>
     </section>

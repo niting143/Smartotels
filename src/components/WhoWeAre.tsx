@@ -7,8 +7,7 @@ import whoweare1 from "../assets/whoweare1.png";
 import whoweare2 from "../assets/whoweare2.png";
 import founderImage from "../assets/tarek.png";
 import linkedin from "../assets/linkedin-in 1.png";
-import whoWeareMobile from "../assets/whoWeAreMobile.png";
-import whoWeAreMobile2 from "../assets/whoweAreMobile2.png";
+
 
 // Reusable transition for initial fade-ins
 const fadeTransition = { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const };
@@ -77,7 +76,7 @@ export default function WhoWeAre() {
                   <Image src={whoweare1} alt="Abstract Architecture" fill className="object-cover" />
                 </div>
                 <div className="block md:hidden w-full">
-                  <Image src={whoWeareMobile} alt="Abstract Mobile" className="w-full h-auto" sizes="100vw" quality={100} priority />
+                  <Image src={whoweare1} alt="Abstract Mobile" className="w-full h-auto" sizes="100vw" quality={100} priority />
                 </div>
               </motion.div>
             </div>
@@ -127,7 +126,7 @@ Smartotels operates at the intersection of hospitality, finance, and design. We 
                   <Image src={whoweare2} alt="Spheres Pattern" fill className="object-cover" />
                 </div>
                 <div className="block md:hidden w-full">
-                  <Image src={whoWeAreMobile2} alt="Spheres Pattern Mobile" className="w-full h-auto" sizes="100vw" quality={100} />
+                  <Image src={whoweare2} alt="Spheres Pattern Mobile" className="w-full h-auto" sizes="100vw" quality={100} />
                 </div>
               </motion.div>
             </div>

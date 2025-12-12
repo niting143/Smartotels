@@ -3,8 +3,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image, { StaticImageData } from "next/image";
-import brand1 from "../assets/brand1.png";
-import brand2 from "../assets/brand2.png";
+import brand1 from "../assets/Picture 2.jpeg";
+import brand2 from "../assets/Picture 4.jpeg";
 import brand3 from "../assets/brand.png";
 
 // Enhanced Fenix-style transitions
@@ -18,7 +18,7 @@ const cardTransition = {
   ease: [0.16, 1, 0.3, 1] as const
 };
 
-// --- PARALLAX IMAGE COMPONENT (REFINED) ---
+// --- PARALLAX IMAGE COMPONENT ---
 function ParallaxImage({ src, alt }: { src: StaticImageData; alt: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -26,10 +26,9 @@ function ParallaxImage({ src, alt }: { src: StaticImageData; alt: string }) {
     offset: ["start end", "end start"],
   });
 
-  // We keep the vertical movement for the parallax effect
+  // Vertical parallax movement
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-
-  // SCALE FIXED: Set to 1.
+  // Fixed scale
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
   return (
@@ -54,11 +53,13 @@ export default function BrandExperience() {
   return (
     <section 
       ref={containerRef} 
-      className="relative h-auto bg-[#FAFAFA] text-black"
+      id="section-brand-experience"
+      // CHANGED: bg-[#FAFAFA] -> bg-white
+      className="relative h-auto bg-white text-black"
     >
       
       {/* Main Title */}
-      <div className="text-center py-6 lg:py-8">
+      <div className="text-center pt-12 pb-6 lg:pt-24 lg:pb-10">
         <motion.h2 
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -85,14 +86,16 @@ export default function BrandExperience() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 min-h-[80vh]">
               {/* Left: Text Block */}
               <div className="flex flex-col h-auto lg:h-full gap-0 lg:gap-2 order-1 lg:order-1">
-                <div className="p-8 lg:p-12 bg-[#E6E6E6] grow flex flex-col justify-center">
+                <div className="p-8 md:px-12 md:pb-12 md:pt-0 bg-[#E6E6E6] grow flex flex-col justify-center">
                   <motion.div
                     initial={{ opacity: 0, y: 60 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ ...textTransition, delay: 0.3 }}
                   >
-                    <h3 className="text-2xl lg:text-5xl font-bold font-open-sans mb-4 leading-tight text-black">Hospitality <br/> Technology</h3>
+                    <h3 className="text-2xl lg:text-5xl font-bold font-open-sans mb-4 leading-tight text-black">
+                      Hospitality <br/> Technology
+                    </h3>
                     <p className="text-base lg:text-xl font-open-sans italic font-semibold mb-4 lg:mb-8 text-black">
                       Technology that strengthens operations and elevates experience.
                     </p>
@@ -108,7 +111,7 @@ export default function BrandExperience() {
                   transition={{ ...textTransition, delay: 0.5 }}
                   className="bg-[#2F4E54] text-white p-6 lg:p-8 shrink-0 flex items-center justify-center"
                 >
-                  <p className="text-base lg:text-2xl font-bold leading-relaxed text-center text-[#D9D9D9]">
+                  <p className="text-base md:text-2xl font-bold leading-relaxed text-center text-[#D9D9D9]">
                     The approach is simple: use technology to improve performance without compromising the human experience.
                   </p>
                 </motion.div>
@@ -158,7 +161,9 @@ export default function BrandExperience() {
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ ...textTransition, delay: 0.4 }}
                   >
-                    <h3 className="text-2xl lg:text-5xl font-bold font-open-sans mb-4 leading-tight text-black">Experience <br/> Design</h3>
+                    <h3 className="text-2xl lg:text-5xl font-bold font-open-sans mb-4 leading-tight text-black">
+                      Experience <br/> Design
+                    </h3>
                     <p className="text-base lg:text-xl font-open-sans italic font-semibold mb-4 lg:mb-8 text-black">
                       Design that shapes emotion and reinforces performance.
                     </p>
@@ -202,7 +207,9 @@ export default function BrandExperience() {
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ ...textTransition, delay: 0.3 }}
                   >
-                    <h3 className="text-2xl lg:text-5xl font-bold font-open-sans mb-4 leading-tight text-black">Brand <br/> Architecture</h3>
+                    <h3 className="text-2xl lg:text-5xl font-bold font-open-sans mb-4 leading-tight text-black">
+                      Brand <br/> Architecture
+                    </h3>
                     <p className="text-base lg:text-xl font-open-sans italic font-semibold mb-4 lg:mb-8 text-black">
                       Identity with purpose. Positioning with clarity. Value with longevity.
                     </p>
