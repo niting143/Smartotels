@@ -6,8 +6,6 @@ import Image from "next/image";
 import whoweare1 from "../assets/whoweare1.png";
 import whoweare2 from "../assets/whoweare2.png";
 import founderImage from "../assets/tarek.png";
-import linkedin from "../assets/linkedin-in 1.png";
-
 
 // Reusable transition for initial fade-ins
 const fadeTransition = { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const };
@@ -47,15 +45,14 @@ export default function WhoWeAre() {
       ref={containerRef}
       className="relative w-full bg-white text-black overflow-clip"
     >
-      {/* --- WATERMARK HEADER (FIXED ON TOP) --- */}
-      {/* UPDATED: 
-          1. z-50: Ensures it sits above the black Founder section (which is z-20).
-          2. mix-blend-mode-difference: Makes the text color invert based on background 
-             (Grey on White, Light on Black) for better visibility and style.
-      */}
-      
       {/* --- SCROLLING CONTENT WRAPPER --- */}
-      <div className="relative z-10 pt-10 md:pt-16 md:pb-24">
+      <div className="sticky top-18 left-0 w-full z-30 pt-10 pointer-events-none">
+         <h1 className="text-4xl md:text-8xl font-bold font-open-sans text-[#DCDCDC] leading-none tracking-tighter whitespace-nowrap">
+           who we are
+         </h1>
+      </div>
+      
+      <div className="relative z-10 pt-10 md:pt-2">
         
         {/* =========================================
             SECTION 1: FOUNDATION 
@@ -101,7 +98,8 @@ export default function WhoWeAre() {
                 Intelligence is our foundation. Hospitality is our language.
               </h2>
               <p className="text-[#474747] text-lg font-regular font-open-sans leading-relaxed">
-Smartotels operates at the intersection of hospitality, finance, and design. We apply data-native intelligence and disciplined structuring to an industry shaped by emotion and experience. The result is a platform built for investors and operators who demand clarity, performance, and enduring value.              </p>
+                Smartotels operates at the intersection of hospitality, finance, and design. We apply data-native intelligence and disciplined structuring to an industry shaped by emotion and experience. The result is a platform built for investors and operators who demand clarity, performance, and enduring value.
+              </p>
             </motion.div>
           </div>
         </div>
@@ -116,7 +114,6 @@ Smartotels operates at the intersection of hospitality, finance, and design. We 
           <div className="flex flex-col md:flex-row items-center md:justify-end">
             
             {/* Image Container */}
-            {/* ADDED: md:mr-20 to push the image away from the right edge on desktop */}
             <div className="w-full md:w-[50%] h-auto md:h-[650px] relative overflow-hidden z-10 order-1 md:order-2 md:mr-20">
               <motion.div 
                 style={{ y: yImg2, scale: 1.15 }} 
@@ -187,18 +184,36 @@ Smartotels operates at the intersection of hospitality, finance, and design. We 
                 className="object-cover grayscale"
               />
               
-
-              
               <div className="absolute w-[85%] md:w-[70%] bottom-4 left-1/2 -translate-x-1/2 bg-black/40 px-4 py-3 flex items-center justify-between gap-10 border-l-2 border-white backdrop-blur-sm">
                 <div>
                   <h3 className="text-white font-semibold font-open-sans text-sm leading-none">Tarek M. Daouk</h3>
                   <p className="text-white text-[10px] mt-1 font-regular font-open-sans uppercase tracking-wide">Founder + Managing Partner</p>
                 </div>
                 <a 
-                href="https://www.linkedin.com/in/daouk-tarek" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              > <img src={linkedin.src} alt="Linkedin" className="w-4 h-4 object-contain" /></a>
+                  href="https://www.linkedin.com/in/daouk-tarek" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center hover:opacity-80 transition-opacity"
+                > 
+                  {/* Official Blue Background LinkedIn SVG */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="w-7 h-7"
+                  >
+                    {/* Blue Box */}
+                    <path
+                      d="M2.5 2h19a.5.5 0 01.5.5v19a.5.5 0 01-.5.5h-19a.5.5 0 01-.5-.5v-19a.5.5 0 01.5-.5z"
+                      fill="#0A66C2"
+                      stroke="none"
+                    />
+                    {/* White Text/Icon */}
+                    <path
+                      d="M8.5 19H5.5V9.5h3V19zM7 8.25c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zM19.5 19h-3v-4.75c0-1.25-.5-1.75-1.25-1.75s-1.5.5-1.5 1.5V19h-3V9.5h3v1.25c.5-1 1.5-1.5 2.5-1.5 2 0 3.25 1.25 3.25 3.5V19z"
+                      fill="#FFFFFF"
+                    />
+                  </svg>
+                </a>
               </div>
 
             </motion.div>

@@ -111,7 +111,7 @@ export default function Footer() {
               <div className="max-w-2xl">
                 <p className="text-[#474747] text-base mb-6 leading-relaxed">
                   Smartotels is based in Dubai and operates across global markets.
-                  We work with investors, owners, operators, and institutions that
+                  We work with investors, owners, government entities, operators, and institutions that
                   see hospitality as a system of intelligence and performance.
                 </p>
                 <p className="text-[#474747] text-base mb-8 leading-relaxed">

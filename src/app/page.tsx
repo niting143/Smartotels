@@ -1,10 +1,10 @@
 import HeroCarousel from "@/components/HeroCarousel";
 import WhoWeAre from "@/components/WhoWeAre";
 import WhatWeDo from "@/components/WhatWeDo";
-import BrandExperience from "@/components/BrandExperience";
+
 import HospitalityStructured from "@/components/HospitalityStructured";
 import Footer from "@/components/Footer";
-import WatermarkHeading from "@/components/WatermarkHeading";
+
 
 import Navbar from "@/components/Navbar";
 
@@ -16,7 +16,7 @@ export default function Home() {
         <HeroCarousel />
       </div>
 
-      <WatermarkHeading />
+      {/* WatermarkHeading Removed */}
 
       {/* WhoWeAre */}
       <div id="section-who-we-are" className="relative z-10 bg-white">
@@ -29,9 +29,7 @@ export default function Home() {
       </div>
 
       {/* BrandExperience */}
-      <div id="section-brand-experience" className="relative z-30 bg-gray-50">
-        <BrandExperience />
-      </div>
+
 
       {/* HospitalityStructured */}
       {/* <div className="relative z-40 bg-black">

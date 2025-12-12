@@ -6,7 +6,7 @@ import Image from "next/image";
 import colouredLogo from "../assets/smartotels-final-logo-colored.svg";
 import whiteLogo from "../assets/smartotels-final-logo-white.svg";
 import { useLenis } from "lenis/react";
-import gsap from "gsap";
+
 import { useRouter, usePathname } from "next/navigation";
 import { useLoading } from "@/context/LoadingContext";
 import { motion } from "framer-motion";
@@ -88,19 +88,7 @@ export default function Navbar() {
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing for smoother feel
           });
 
-          // 2. GSAP Animation: Card comes from left to right
-          // We animate the target element itself
-          gsap.fromTo(
-            targetElement,
-            { x: "-100%", opacity: 0 },
-            {
-              x: "0%",
-              opacity: 1,
-              duration: 1,
-              ease: "power3.out",
-              delay: 0.2, // Slight delay to let scroll start
-            }
-          );
+
         }
       } else {
         // We are on another page (e.g. /the-vault) -> Go to Home + Hash

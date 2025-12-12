@@ -54,12 +54,11 @@ export default function BrandExperience() {
     <section 
       ref={containerRef} 
       id="section-brand-experience"
-      // CHANGED: bg-[#FAFAFA] -> bg-white
       className="relative h-auto bg-white text-black"
     >
       
       {/* Main Title */}
-      <div className="text-center pt-12 pb-6 lg:pt-24 lg:pb-10">
+      <div className="text-center pt-12 pb-6 lg:pt-16 lg:pb-12">
         <motion.h2 
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,18 +71,20 @@ export default function BrandExperience() {
       </div>
 
       {/* --- STACK AREA --- */}
-      <div className="relative w-full flex flex-col">
+      {/* Added gap-12 to control spacing between rows nicely without huge gaps */}
+      <div className="relative w-full flex flex-col gap-12 lg:gap-16 pb-12 lg:pb-20">
         
         {/* ROW 1: Hospitality Technology */}
         <motion.div 
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-150px" }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={cardTransition}
-          className="relative w-full min-h-screen flex items-center bg-white"
+          className="relative w-full flex items-center bg-white"
         >
           <div className="w-full max-w-[1600px] mx-auto px-0 md:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 min-h-[80vh]">
+            {/* Reduced min-h from 80vh to 60vh */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 min-h-[60vh]">
               {/* Left: Text Block */}
               <div className="flex flex-col h-auto lg:h-full gap-0 lg:gap-2 order-1 lg:order-1">
                 <div className="p-8 md:px-12 md:pb-12 md:pt-0 bg-[#E6E6E6] grow flex flex-col justify-center">
@@ -123,7 +124,8 @@ export default function BrandExperience() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ ...textTransition, delay: 0.4 }}
-                className="relative h-[70vh] lg:h-full w-full order-2 lg:order-2"
+                // Reduced h from 70vh to 60vh
+                className="relative h-[60vh] lg:h-full w-full order-2 lg:order-2"
               >
                 <ParallaxImage src={brand3} alt="Hospitality Technology" />
               </motion.div>
@@ -135,19 +137,22 @@ export default function BrandExperience() {
         <motion.div 
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-150px" }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={cardTransition}
-          className="relative w-full min-h-screen flex items-center bg-white"
+          // Removed min-h-screen
+          className="relative w-full flex items-center bg-white"
         >
           <div className="w-full max-w-[1600px] mx-auto px-0 md:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 min-h-[80vh]">
+            {/* Reduced min-h from 80vh to 60vh */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 min-h-[60vh]">
               {/* Left: Image Block */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ ...textTransition, delay: 0.3 }}
-                className="relative h-[70vh] lg:h-full w-full order-2 lg:order-1"
+                // Reduced h from 70vh to 60vh
+                className="relative h-[60vh] lg:h-full w-full order-2 lg:order-1"
               >
                 <ParallaxImage src={brand2} alt="Experience Design" />
               </motion.div>
@@ -192,12 +197,14 @@ export default function BrandExperience() {
         <motion.div 
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-150px" }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={cardTransition}
-          className="relative w-full min-h-screen flex items-center bg-white"
+          // Removed min-h-screen
+          className="relative w-full flex items-center bg-white"
         >
           <div className="w-full max-w-[1600px] mx-auto px-0 md:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 min-h-[80vh]">
+            {/* Reduced min-h from 80vh to 60vh */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 min-h-[60vh]">
               {/* Left: Text Block */}
               <div className="flex flex-col h-auto lg:h-full gap-0 lg:gap-2 order-1 lg:order-1">
                 <div className="p-8 lg:p-12 bg-[#E6E6E6] grow flex flex-col justify-center">
@@ -237,7 +244,8 @@ export default function BrandExperience() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ ...textTransition, delay: 0.4 }}
-                className="relative h-[70vh] lg:h-full w-full order-2 lg:order-2"
+                // Reduced h from 70vh to 60vh
+                className="relative h-[60vh] lg:h-full w-full order-2 lg:order-2"
               >
                 <ParallaxImage src={brand1} alt="Brand Architecture" />
               </motion.div>
