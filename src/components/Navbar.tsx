@@ -128,7 +128,7 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={showNavbar ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 px-3 py-3 md:py-6 md:px-4 transition-all duration-300 pointer-events-none md:pointer-events-auto"
+      className="fixed top-0 left-0 right-0 z-[100] px-3 py-3 md:py-6 md:px-4 transition-all duration-300 pointer-events-none md:pointer-events-auto"
     >
       <div className="flex items-center justify-between pointer-events-auto">
         {/* LOGO */}
