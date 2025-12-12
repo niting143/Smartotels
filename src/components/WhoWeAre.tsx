@@ -73,7 +73,7 @@ export default function WhoWeAre() {
                 className="relative md:absolute inset-0 w-full h-full md:h-[120%]"
               >
                 <div className="hidden md:block relative w-full h-full">
-                  <Image src={whoweare1} alt="Abstract Architecture" fill className="object-cover" />
+                  <Image src={whoweare1} alt="Abstract Architecture" fill className="object-contain" />
                 </div>
                 <div className="block md:hidden w-full">
                   <Image src={whoweare1} alt="Abstract Mobile" className="w-full h-auto" sizes="100vw" quality={100} priority />
@@ -123,7 +123,7 @@ Smartotels operates at the intersection of hospitality, finance, and design. We 
                 className="relative md:absolute inset-0 w-full h-full md:h-[120%]"
               >
                 <div className="hidden md:block relative w-full h-full">
-                  <Image src={whoweare2} alt="Spheres Pattern" fill className="object-cover" />
+                  <Image src={whoweare2} alt="Spheres Pattern" fill className="object-contain" />
                 </div>
                 <div className="block md:hidden w-full">
                   <Image src={whoweare2} alt="Spheres Pattern Mobile" className="w-full h-auto" sizes="100vw" quality={100} />

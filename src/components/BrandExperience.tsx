@@ -3,8 +3,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image, { StaticImageData } from "next/image";
-import brand1 from "../assets/Picture 2.jpeg";
-import brand2 from "../assets/Picture 4.jpeg";
+import brand1 from "../assets/Picture 4.jpeg";
+import brand2 from "../assets/Picture 2.jpeg";
 import brand3 from "../assets/brand.png";
 
 // Enhanced Fenix-style transitions
