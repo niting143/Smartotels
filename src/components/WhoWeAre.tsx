@@ -179,6 +179,7 @@ Smartotels operates at the intersection of hospitality, finance, and design. We 
               viewport={{ once: true }}
               className="relative aspect-[3/4] w-full overflow-hidden"
             >
+              
               <Image 
                 src={founderImage} 
                 alt="Tarek M. Daouk" 
@@ -186,12 +187,18 @@ Smartotels operates at the intersection of hospitality, finance, and design. We 
                 className="object-cover grayscale"
               />
               
+
+              
               <div className="absolute w-[85%] md:w-[70%] bottom-4 left-1/2 -translate-x-1/2 bg-black/40 px-4 py-3 flex items-center justify-between gap-10 border-l-2 border-white backdrop-blur-sm">
                 <div>
                   <h3 className="text-white font-semibold font-open-sans text-sm leading-none">Tarek M. Daouk</h3>
                   <p className="text-white text-[10px] mt-1 font-regular font-open-sans uppercase tracking-wide">Founder + Managing Partner</p>
                 </div>
-                <img src={linkedin.src} alt="Linkedin" className="w-4 h-4 object-contain" />
+                <a 
+                href="https://www.linkedin.com/in/daouk-tarek" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              > <img src={linkedin.src} alt="Linkedin" className="w-4 h-4 object-contain" /></a>
               </div>
 
             </motion.div>
