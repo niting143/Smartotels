@@ -119,7 +119,13 @@ export default function HeroCarousel() {
       const targetElement = document.getElementById(targetId);
 
       if (targetElement && lenis) {
+        let offset = 0;
+        if (targetId === "section-brand-experience") {
+             offset = window.innerWidth >= 768 ? -150 : -70;
+        }
+
         lenis.scrollTo(targetElement, {
+          offset,
           duration: 1.5,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
