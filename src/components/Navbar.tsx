@@ -21,27 +21,19 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check the element at the center top of the viewport roughly where the navbar logo area is
-      // We look a bit below the very top edge to catch the section body
       const x = window.innerWidth / 2;
-      const y = 50; // 50px down from top
+      const y = 50; 
       
-      // Use efficient elementFromPoint vs elementsFromPoint if possible, 
-      // but logic relied on traversing parents.
       const elements = document.elementsFromPoint(x, y);
       
-      // Define which sections are dark
       const darkSections = ["section-hero", "section-footer", "section-founder"];
-      // Assuming others are light
-
       let foundSectionId = null;
 
       for (const el of elements) {
-        // Find the closest parent with an id starting with 'section-'
         const section = el.closest('[id^="section-"]');
         if (section) {
           foundSectionId = section.id;
-          break; // Found the top-most section
+          break; 
         }
       }
 
@@ -52,8 +44,6 @@ export default function Navbar() {
           setIsDarkBackground(false);
         }
       } else {
-        // Fallback for pages without sections (e.g., The Vault)
-        // For /the-vault, user requested white logo -> isDarkBackground = true
         if (pathname === "/the-vault") {
              setIsDarkBackground(true);
         }
@@ -61,7 +51,6 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Initial check
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -75,27 +64,20 @@ export default function Navbar() {
     e.preventDefault();
 
     if (href.startsWith("#")) {
-      // Internal Scroll Link
       if (pathname === "/") {
-        // We are on Home Page -> Scroll Smoothly
         const targetId = href.replace("#", "");
         const targetElement = document.getElementById(targetId);
 
         if (targetElement && lenis) {
-          // 1. Smooth Scroll to the target
           lenis.scrollTo(targetElement, {
             duration: 1.5,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing for smoother feel
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
           });
-
-
         }
       } else {
-        // We are on another page (e.g. /the-vault) -> Go to Home + Hash
         router.push("/" + href);
       }
     } else {
-      // External/Route Link (The Vault)
       router.push(href);
     }
 
@@ -131,7 +113,7 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* DESKTOP MENU (Hidden on Mobile) */}
+        {/* DESKTOP MENU */}
         <div className="hidden md:flex items-center gap-4">
           {menuItems.map((item) => {
             return (
@@ -147,23 +129,25 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* MOBILE HAMBURGER BUTTON (Visible on Mobile) */}
+        {/* MOBILE HAMBURGER BUTTON */}
         <button
           onClick={toggleMenu}
+          // UPDATED: Simply toggle between white and black based on background, regardless of open state
           className={`md:hidden z-50 p-2 focus:outline-none transition-colors duration-300 ${
-             isDarkBackground && !isMobileMenuOpen ? "text-white" : "text-black"
+             isDarkBackground ? "text-white" : "text-black"
           }`}
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
             /* Close Icon (X) */
+             // UPDATED: Removed 'text-white' so it inherits color from parent button
              <svg
                xmlns="http://www.w3.org/2000/svg"
                fill="none"
                viewBox="0 0 24 24"
                strokeWidth={1.5}
                stroke="currentColor"
-               className="w-8 h-8 text-white" 
+               className="w-8 h-8" 
              >
               <path
                 strokeLinecap="round"
@@ -179,7 +163,7 @@ export default function Navbar() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className={`w-8 h-8 ${isDarkBackground ? "text-white" : "text-black"}`}
+              className="w-8 h-8"
             >
               <path
                 strokeLinecap="round"
