@@ -45,7 +45,7 @@ export default function TheVault() {
           <div className="flex flex-col gap-1.5">
             <label 
               htmlFor="username" 
-              className="text-gray-700 text-sm font-medium"
+              className="text-black text-sm font-medium"
             >
               Username
             </label>
@@ -55,7 +55,7 @@ export default function TheVault() {
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border border-gray-300 p-2.5 rounded-sm focus:outline-none focus:border-[#2F4E54] transition-colors bg-white/80 text-sm"
+              className="w-full border border-gray-300 p-2.5 text-black rounded-sm focus:outline-none focus:border-[#2F4E54] transition-colors bg-white/80 text-sm"
             />
           </div>
 
@@ -63,7 +63,7 @@ export default function TheVault() {
           <div className="flex flex-col gap-1.5">
             <label 
               htmlFor="password" 
-              className="text-gray-700 text-sm font-medium"
+              className="text-black text-sm font-medium"
             >
               Password
             </label>
@@ -74,7 +74,7 @@ export default function TheVault() {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-300 p-2.5 pr-10 rounded-sm focus:outline-none focus:border-[#2F4E54] transition-colors bg-white/80 text-sm"
+                className="w-full text-black border border-gray-300 p-2.5 pr-10 rounded-sm focus:outline-none focus:border-[#2F4E54] transition-colors bg-white/80 text-sm"
               />
               <button
                 type="button"

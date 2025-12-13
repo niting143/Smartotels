@@ -46,7 +46,7 @@ export default function WhoWeAre() {
       className="relative w-full bg-white text-black overflow-clip"
     >
       {/* --- SCROLLING CONTENT WRAPPER --- */}
-      <div className="sticky top-18 left-0 w-full z-30 pt-10 pointer-events-none">
+      <div className="sticky top-10 md:top-18 left-0 w-full z-30 pt-10 pointer-events-none">
          <h1 className="text-4xl md:text-8xl font-bold font-open-sans text-[#DCDCDC] leading-none tracking-tighter whitespace-nowrap">
            who we are
          </h1>
